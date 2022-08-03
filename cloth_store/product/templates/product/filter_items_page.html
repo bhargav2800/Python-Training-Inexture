@@ -1,0 +1,33 @@
+{% extends 'product/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="search-results">
+    <h2 class="heading">search results for <span>product</span></h2>
+    <div class="product-container-filter">
+        {% for product in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="discount-tag">{{ product.discount }}% off</span>
+                    <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="product-thumb" alt=""></a>
+                    <a href="{% url 'add_to_wishlist' product.id %}"><button class="card-btn">add to WishList</button></a>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">{{ product.brand }}</h2>
+                    <h5 class="product-brand">{{ product.name }}</h5>
+                    <p class="product-short-des">{{ product.short_line }}</p>
+                    {% if product.discount > 0 %}
+                        <span class="price" >Rs. {{ product.discount_price }}</span><span class="actual-price">Rs. {{ product.price }}</span>
+                    {% else %}
+                        <span class="price">Rs. {{ product.price }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<footer></footer>
+<script src="{% static 'js/footer.js' %}"></script>
+{% endblock content %}

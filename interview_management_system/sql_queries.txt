@@ -1,0 +1,78 @@
+CREATE TABLE CANDIDATE (
+	user_id bigserial PRIMARY KEY NOT NULL,
+	password VARCHAR(16) NOT NULL,
+	f_name VARCHAR(16) NOT NULL,
+	l_name VARCHAR(16) NOT NULL,
+	mobile_n VARCHAR(12) NOT NULL UNIQUE,
+	email VARCHAR(40) NOT NULL UNIQUE,
+	age int NOT NULL,
+	ssc_result int NOT NULL,
+	hsc_result int NOT NULL,
+	stream VARCHAR(15) NOT NULL,
+	cgpa int NOT NULL,
+	city VARCHAR(20) NOT NULL,
+	resume bytea NOT NULL
+);
+
+
+CREATE TABLE organization (
+	c_id bigserial PRIMARY KEY NOT NULL,
+	c_name varchar(16) NOT NULL,
+	web_site varchar(40) NOT NULL,
+	official_mail varchar(25) NOT NULL,
+	admin_id integer NOT NULL UNIQUE,
+	admin_pass varchar(16) NOT NULL,
+	q_set bigserial NOT NULL
+);
+
+CREATE TABLE questions (
+	q_id bigserial PRIMARY KEY NOT NULL,
+	q_set int NOT NULL,
+	question varchar(100) NOT NULL,
+	marks int NOT NULL,
+	answer varchar(30) NOT NULL,
+	op1 varchar(30) NOT NULL,
+	op2 varchar(30) NOT NULL,
+	op3 varchar(30) NOT NULL,
+	op4 varchar(30) NOT NULL,
+	FOREIGN KEY(q_set)
+	REFERENCES organization(q_set)
+);
+
+
+CREATE TABLE selection_details (
+	user_id int NOT NULL,
+	c_id int NOT NULL,
+	marks int NOT NULL,
+	selection_status varchar(25) DEFAULT 'Under Observation',
+	next_process_info varchar(500),
+	
+	FOREIGN KEY(user_id) REFERENCES candidate(user_id),
+	FOREIGN KEY(c_id) REFERENCES organization(c_id)
+);
+
+
+CREATE TABLE interested_tech (
+	user_id int NOT NULL,
+	tech varchar(20),
+	FOREIGN KEY(user_id) REFERENCES candidate(user_id)
+);
+
+
+CREATE TABLE user_queries (
+	user_id int NOT NULL,
+	c_id int NOT NULL,
+	user_query varchar(500),
+	organization_responce varchar(500),
+	
+	FOREIGN KEY(user_id) REFERENCES candidate(user_id),
+	FOREIGN KEY(c_id) REFERENCES organization(c_id)
+);
+
+
+
+
+
+
+***** Always Commit After modidfing the data to save the changes *****
+

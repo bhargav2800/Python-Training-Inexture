@@ -1,0 +1,103 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<section class="product">
+    <h2 class="product-category" style="margin-top: 25px; font-weight: bold; text-align: center; font-size: 40px; text-decoration: underline;">best selling</h2>
+    <button class="pre-btn"><img src="{% static 'images/arrow.png' %}" alt=""></button>
+    <button class="nxt-btn"><img src="{% static 'images/arrow.png' %}" alt=""></button>
+    <div class="product-container">
+        {% for product in best_selling %}
+            <div class="product-card">
+                <div class="product-image">
+                    {% if product.discount > 0 %}
+                        <span class="discount-tag">{{ product.discount }}% off</span>
+                    {% endif %}
+                    <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}" class="product-thumb" alt=""></a>
+                    <a href="{% url 'add_to_wishlist' product.id %}" ><button class="card-btn">add to WishList</button></a>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">{{ product.brand }}</h2>
+                    <p class="product-short-des">{{ product.short_line }}</p>
+                    {% if product.product.discount > 0 %}
+                        <span class="price" >Rs. {{ product.discount_price }}</span><span class="actual-price">Rs. {{ product.product.price }}</span>
+                    {% else %}
+                        <span class="price">Rs. {{ product.price }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{#Budget Buys Section#}
+<section class="budget-buy"x>
+    <h2 class="product-category" style="margin-top: 40px; text-align: center; font-size: 40px; text-decoration: underline;">Budget Buys</h2>
+    <div class="product-container-filter">
+        <div class="product-card">
+            <div class="product-image">
+                <a href="{% url 'product_page' 'kurtas' %}"><img src="{% static 'images/kurtas.jpg' %}" class="product-thumb" alt=""></a>
+            </div>
+            <div class="product-info">
+                <a href="{% url 'product_page' 'kurtas' %}"><h2 class="product-brand">Kurtas</h2></a>
+                <p class="product-short-des">Mens's Kurtas</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <a href="{% url 'product_page' 'traditional' %}"><img src="{% static 'images/traditional.jpg' %}" class="product-thumb" alt=""></a>
+            </div>
+            <div class="product-info">
+                <a href="{% url 'product_page' 'traditional' %}"><h2 class="product-brand">Traditional</h2></a>
+                <p class="product-short-des">Traditionals For Garba, Events ...</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <a href="{% url 'product_page' 'saree' %}"><img src="{% static 'images/saree.jpg' %}" class="product-thumb" alt=""></a>
+            </div>
+            <div class="product-info">
+                <a href="{% url 'product_page' 'saree' %}"><h2 class="product-brand">SAREE</h2></a>
+                <p class="product-short-des">Sarees to match your Personalities</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <a href="{% url 'product_page' 'bottomwear' %}"><img src="{% static 'images/bottomwear.webp' %}" class="product-thumb" alt=""></a>
+            </div>
+            <div class="product-info">
+                <a href="{% url 'product_page' 'bottomwear' %}"><h2 class="product-brand">BottomWear</h2></a>
+                <p class="product-short-des">Fancy Bottomwear ...</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <a href="{% url 'product_page' 'upperwear' %}"><img src="{% static 'images/card1.png' %}" class="product-thumb" alt=""></a>
+            </div>
+            <div class="product-info">
+                <a href="{% url 'product_page' 'upperwear' %}"><h2 class="product-brand">UpperWear</h2></a>
+                <p class="product-short-des">fancy Upperwear ...</p>
+            </div>
+        </div>
+</section>
+
+<br>
+<section class="collection-container">
+    <a href="{% url 'target_audience' 'Women' %}" class="collection">
+        <img src="{% static 'images/women_collection.png' %}" alt="">
+        <p class="collection-title">Women <br> apparels</p>
+    </a>
+    <a href="{% url 'target_audience' 'Men' %}" class="collection">
+        <img src="{% static 'images/men_collection.png' %}" alt="">
+        <p class="collection-title">Men <br> apparels</p>
+    </a>
+    <a href="{% url 'target_audience' 'Kids' %}" class="collection">
+        <img src="{% static 'images/accessories_collection.png' %}" alt="">
+        <p class="collection-title">Children <br> apparels</p>
+    </a>
+</section>
+
+<footer></footer>
+<script src="{% static 'js/footer.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
+
+{% endblock content %}

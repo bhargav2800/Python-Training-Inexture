@@ -1,0 +1,48 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0 text-black">Your WishList</h3>
+        </div>
+        {% for item in products %}
+        <div class="card rounded-3 mb-4">
+          <div class="card-body p-4">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img
+                  src="{{ item.product.image.url }}"
+                  class="img-fluid rounded-3" alt="Image Not Loaded">
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal mb-2">{{ item.product.name }}</p>
+                <p>{{ item.product.short_line }}</p>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                <h5 class="mb-0">Rs. {{ item.product.discount_price }}</h5>
+              </div>
+
+                <div class="col-md-1 col-lg-1 col-xl-1 text-end" data-mdb-toggle="tooltip"
+                  title="View Product">
+                <a href="{% url 'product_details' item.product.id %}" class="text-primary"><i class="fas fa-eye fa-lg"></i></a>
+              </div>
+              <div class="col-md-1 col-lg-1 col-xl-1 text-end" data-mdb-toggle="tooltip"
+                  title="Remove item">
+                <a href="{% url 'remove_from_wishlist' item.product.id %}" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>
+<footer></footer>
+<script src="{% static 'js/footer.js' %}"></script>
+{% endblock content %}
